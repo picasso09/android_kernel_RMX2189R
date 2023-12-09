@@ -38,8 +38,7 @@ config F2FS_FS_XATTR
 	default y
 	help
 	  Extended attributes are name:value pairs associated with inodes by
-	  the kernel or by users (see the attr(5) manual page, or visit
-	  <http://acl.bestbits.at/> for details).
+	  the kernel or by users (see the attr(5) manual page for details).
 
 	  If unsure, say N.
 
@@ -51,9 +50,6 @@ config F2FS_FS_POSIX_ACL
 	help
 	  Posix Access Control Lists (ACLs) support permissions for users and
 	  groups beyond the owner/group/world scheme.
-
-	  To learn more about Access Control Lists, visit the POSIX ACLs for
-	  Linux website <http://acl.bestbits.at/>.
 
 	  If you don't know what Access Control Lists are, say N
 
@@ -71,17 +67,9 @@ config F2FS_FS_SECURITY
 
 	  If you are not using a security module, say N.
 
-#VENDOR_EDIT huangjianan@TECH.Storage.FS.F2FS, 2020-03-08, add for aging version
-config OPPO_F2FS_DEBUG
-	string
-	option env="OPPO_F2FS_DEBUG"
-
 config F2FS_CHECK_FS
 	bool "F2FS consistency checking feature"
 	depends on F2FS_FS
-	#VENDOR_EDIT huangjianan@TECH.Storage.FS.F2FS, 2020-03-08, add for aging version
-	default y if OPPO_F2FS_DEBUG = "true"
-	default n if !OPPO_F2FS_DEBUG
 	help
 	  Enables BUG_ONs which check the filesystem consistency in runtime.
 
@@ -147,38 +135,3 @@ config F2FS_FS_ZSTD
 	default y
 	help
 	  Support ZSTD compress algorithm, if unsure, say Y.
-
-config F2FS_GRADING_SSR
-	bool "F2FS grading ssr"
-	depends on F2FS_FS
-	default n
-	help
-	  use grading ssr to improve the end performance
-
-#VENDOR_EDIT yanwu@TECH.Storage.FS.oF2FS, 2019/08/14, add f2fs big-data statistics
-config F2FS_BD_STAT
-	bool "F2FS Bigdata Statisitics Information"
-	depends on F2FS_FS
-	default y
-	help
-	  contains the f2fs big-data statistics information about specific partition
-	  mounted as f2fs.
-	  /proc/fs/f2fs/<partition>/base_info:
-	    - basic statistics information
-	  /proc/fs/f2fs/<partition>/discard_info
-	    - discard statistics information
-	  /proc/fs/f2fs/<partition>/cp_info
-	    - checkpoint statistics information
-	  /proc/fs/f2fs/<partition>/gc_info
-	    - gc statistics information
-	  /proc/fs/f2fs/<partition>/fsync_info
-	    - fsync statistics information
-	  /proc/fs/f2fs/<partition>/hotcold_info
-	    - hot/cold statistics information
-
-config OPLUS_FEATURE_OF2FS
-	bool "OF2FS independent repo"
-	default n
-	depends on F2FS_FS
-	help
-	  define this config to switch f2fs repo.

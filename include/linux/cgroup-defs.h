@@ -463,39 +463,38 @@ struct cgroup {
  * internal to cgroup core.  Don't access directly from controllers.
  */
 struct cgroup_root {
-	struct kernfs_root *kf_root;
+    struct kernfs_root *kf_root;
 
-	/* The bitmask of subsystems attached to this hierarchy */
-	unsigned int subsys_mask;
+    /* The bitmask of subsystems attached to this hierarchy */
+    unsigned int subsys_mask;
 
-	/* Unique id for this hierarchy. */
-	int hierarchy_id;
+    /* Unique id for this hierarchy. */
+    int hierarchy_id;
 
-	/* The root cgroup.  Root is destroyed on its release. */
-	struct cgroup cgrp;
+    /* for cgrp->ancestor_ids[0] */
+    int cgrp_ancestor_id_storage;
 
-	/* for cgrp->ancestor_ids[0] */
-	int cgrp_ancestor_id_storage;
+    /* Number of cgroups in the hierarchy, used only for /proc/cg> */
+    atomic_t nr_cgrps;
 
-	/* Number of cgroups in the hierarchy, used only for /proc/cgroups */
-	atomic_t nr_cgrps;
+    /* A list running through the active hierarchies */
+    struct list_head root_list;
 
-	/* A list running through the active hierarchies */
-	struct list_head root_list;
+    /* Hierarchy-specific flags */
+    unsigned int flags;
 
-	/* Hierarchy-specific flags */
-	unsigned int flags;
+    /* IDs for cgroups in this hierarchy */
+    struct idr cgroup_idr;
 
-	/* IDs for cgroups in this hierarchy */
-	struct idr cgroup_idr;
+    /* The path to use for release notifications. */
+    char release_agent_path[PATH_MAX];
 
-	/* The path to use for release notifications. */
-	char release_agent_path[PATH_MAX];
+    /* The name for this hierarchy - may be empty */
+    char name[MAX_CGROUP_ROOT_NAMELEN];
 
-	/* The name for this hierarchy - may be empty */
-	char name[MAX_CGROUP_ROOT_NAMELEN];
+    /* The root cgroup. Root is destroyed on its release. */
+    struct cgroup cgrp;
 };
-
 /*
  * struct cftype: handler definitions for cgroup control files
  *
