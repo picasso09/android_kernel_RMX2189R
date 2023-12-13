@@ -20,6 +20,12 @@ config MTK_VIDEOX
 	  If you want to use Meditek display driver, please make sure it is Y in xxx_defconfig.mk.
 	  If unsure, set N.
 
+config MTK_VIDEOX_LIVEDISPLAY
+	bool CONFIG_MTK_VIDEOX_LIVEDISPLAY
+	default n
+	help
+	 Enable the RGB interface for color calibration.
+
 config MTK_LCM_PHYSICAL_ROTATION
 	string "define LCM PHYSICAL ROTATION"
 	help
@@ -158,3 +164,4 @@ config MTK_DISPLAY_LOW_MEMORY_DEBUG_SUPPORT
 	  If enable this option, display some debug buffer will be reduced or closed.
 	  If you want to use Meditek display low memory debug, please make sure it is Y in xxx_defconfig.mk.
 	  If unsure, set N.
+
